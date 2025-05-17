@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
+import express from 'express';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-
 const WEB_APP_URL = process.env.WEB_APP_URL;
 
 bot.start((ctx) => {
@@ -15,3 +15,11 @@ bot.start((ctx) => {
 });
 
 bot.launch();
+
+// 👇 Добавляем фейковый сервер для Render
+const app = express();
+app.get('/', (req, res) => res.send('Bot is running'));
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Fake server is running');
+});
+
